@@ -1,0 +1,141 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/header.css">
+  <title>URL Shortener</title>
+</head>
+<body>
+
+  <%- include('./partials/header.ejs') %>
+
+  <% if(user) { %>
+    <h2 style="text-align:center;color:white;">
+      You are logged In
+    </h2>
+  <% } else { %>
+    <h2 style="text-align:center;color:white;">
+      You are not logged In
+    </h2>
+  <% } %>
+
+  <div class="container">
+
+    <% if (errors && errors.length > 0 ) { %>
+      <% errors.forEach((error)=> { %>
+        <p class="flash-error"><%= error %></p>
+      <% }) %>
+    <% } %>
+
+    <h1>URL Shortener</h1>
+
+    <form action="/" method="POST">
+
+      <div>
+        <label for="url">Enter URL:</label>
+        <input
+          type="url"
+          name="url"
+          id="url"
+          required
+        >
+      </div>
+
+      <div>
+        <label for="shortCode">Enter Short Code:</label>
+        <input
+          type="text"
+          name="shortCode"
+          id="shortCode"
+          required
+        >
+      </div>
+
+      <button type="submit">
+        Shorten
+      </button>
+
+    </form>
+
+    <h2>Shortened URLs</h2>
+
+    <ul>
+
+      <% links.map(({  shortCode, url, id }) => { %>
+
+        <% const truncatedUrl =
+          url.length >= 30
+            ? `${url.slice(0,30)}...`
+            : url;
+        %>
+
+        
+<li class="link-item">
+
+    <div class="link-info">
+        <a href="/<%= shortCode %>" target="_blank">
+            <%= host %>/<%= shortCode %>
+        </a>
+        -
+        <%= truncatedUrl %>
+    </div>
+
+    <div class="actions">
+
+        <button
+            class="copy-btn"
+            type="button"
+            onclick="copyLink('http://<%= host %>/<%= shortCode %>')"
+        >
+            📋 Copy
+        </button>
+
+        <a
+            class="edit-btn"
+            href="/edit/<%= id %>"
+        >
+            ✏️ Edit
+        </a>
+
+        <form
+    action="/delete/<%= id %>"
+    method="POST"
+    style="display:inline;"
+>
+    <button
+        class="delete-btn"
+        type="submit"
+    >
+        🗑️Delete
+    </button>
+</form>
+
+    </div>
+
+</li>
+
+
+
+      <% }) %>
+
+    </ul>
+
+  </div>
+
+  <script>
+    async function copyLink(url) {
+      try {
+        await navigator.clipboard.writeText(url);
+        alert("✅ Link Copied!");
+      } catch (err) {
+        alert("❌ Copy Failed");
+      }
+    }
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/header.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %>
+
+<div class="container">
+
+    <div class="signup-content">
+        <div class="signup-form">
+
+            <h2 class="form-title">Edit Short URL</h2>
+
+            <form
+                action="/edit/<%= id %>"
+                method="POST"
+                class="register-form"
+                id="edit-form"
+            >
+
+                <div class="form-group">
+                    <label for="url">
+                        <i class="zmdi zmdi-link"></i>
+                    </label>
+
+                    <input
+                        type="url"
+                        name="url"
+                        id="url"
+                        value="<%= url %>"
+                        placeholder="Enter URL"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="shortCode">
+                        <i class="zmdi zmdi-code"></i>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="shortCode"
+                        id="shortCode"
+                        value="<%= shortCode %>"
+                        placeholder="Enter custom short code"
+                        required
+                    >
+                </div>
+
+                <% if (errors && errors.length > 0) { %>
+                    <% errors.forEach((error) => { %>
+                        <p class="flash-error">
+                            <%= error %>
+                        </p>
+                    <% }) %>
+                <% } %>
+
+                <div class="form-group form-button">
+                    <input
+                        type="submit"
+                        name="shorten"
+                        class="form-submit"
+                        value="Update Link"
+                    >
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
