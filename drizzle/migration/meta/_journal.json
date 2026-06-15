@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1781177668139,
-      "tag": "0000_high_madame_web",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1781182816192,
-      "tag": "0001_quick_squadron_sinister",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1781268584256,
-      "tag": "0002_gifted_hannibal_king",
+      "when": 1781512850443,
+      "tag": "0000_daily_lenny_balinger",
       "breakpoints": true
     }
   ]

@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f5f5f5;
+            min-height:100vh;
+            padding:30px 15px;
+        }
+
+        .container{
+            max-width:700px;
+            margin:40px auto 0;
+        }
+
+        .section-title{
+            text-align:center;
+            margin-bottom:25px;
+            color:#333;
+            font-size:32px;
+            font-weight:600;
+        }
+
+        .alert{
+            padding:12px 15px;
+            border-radius:4px;
+            margin-bottom:20px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            border:1px solid;
+        }
+
+        .alert-success{
+            background:#dff0d8;
+            border-color:#d6e9c6;
+            color:#3c763d;
+        }
+
+        .alert-warning{
+            background:#fcf8e3;
+            border-color:#faebcc;
+            color:#8a6d3b;
+        }
+
+        .card{
+            background:#fff;
+            border:1px solid #ddd;
+            border-radius:4px;
+            margin-bottom:20px;
+        }
+
+        .card-body{
+            padding:20px;
+        }
+        .resend-form{
+    display:flex;
+    justify-content:flex-end;
+}
+
+        .info-text{
+            color:#555;
+            margin-bottom:10px;
+            line-height:1.6;
+        }
+
+        .form-group{
+            margin-bottom:15px;
+        }
+
+        .control-label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+            color:#333;
+        }
+
+        .form-control{
+            width:100%;
+            padding:10px 12px;
+            border:1px solid #ccc;
+            border-radius:4px;
+            font-size:15px;
+        }
+
+        .form-control:focus{
+            outline:none;
+            border-color:#66afe9;
+            box-shadow:0 0 5px rgba(102,175,233,.6);
+        }
+
+        .btn{
+            border:none;
+            cursor:pointer;
+            border-radius:4px;
+            padding:10px 16px;
+            font-size:14px;
+        }
+
+        .btn-secondary{
+            background:#6c757d;
+            color:#fff;
+        }
+
+        .btn-secondary:hover{
+            background:#5a6268;
+        }
+
+        .btn-primary{
+            width:100%;
+            background:#337ab7;
+            color:#fff;
+        }
+
+        .btn-primary:hover{
+            background:#286090;
+        }
+
+        .mt-20{
+            margin-top:20px;
+        }
+    </style>
+</head>
+<body>
+
+<%- include('../partials/header.ejs') %>
+
+<main class="container">
+
+    <h1 class="section-title">Verify Your Email</h1>
+
+    <% if (user) { %>
+        <div class="alert alert-success">
+            <i class="zmdi zmdi-check-circle"></i>
+            <span>You are logged in</span>
+        </div>
+    <% } else { %>
+        <div class="alert alert-warning">
+            <i class="zmdi zmdi-alert-circle"></i>
+            <span>You are not logged in</span>
+        </div>
+    <% } %>
+
+    <div class="card">
+        <div class="card-body">
+
+            <p class="info-text">
+                <strong>Email:</strong> <%= email %>
+            </p>
+
+            <p class="info-text">
+                Your email has not been verified yet.
+                Please verify your email by entering the 8-digit code
+                or request a new verification link.
+            </p>
+
+            <form action="/resend-verification-link" method="POST" class="resend-form">
+                <button type="submit" class="btn btn-secondary">
+                    Resend Verification Link
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="card mt-20">
+        <div class="card-body">
+
+            <form action="/verify-email-token" method="GET">
+
+                <div class="form-group">
+                    <label for="token" class="control-label">
+                        Enter 8-Digit Verification Code:
+                    </label>
+
+                    <input
+                        type="text"
+                        name="token"
+                        id="token"
+                        class="form-control"
+                        maxlength="8"
+                        required
+                        pattern="\d{8}"
+                        title="Please enter an 8-digit number"
+                        placeholder="12345678"
+                    >
+                </div>
+
+                <input
+                    type="hidden"
+                    name="email"
+                    value="<%= email %>"
+                >
+
+                <button type="submit" class="btn btn-primary">
+                    Verify Code
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>
+
