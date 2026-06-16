@@ -10,17 +10,21 @@ A modern URL Shortener application built with Node.js, TypeScript, MySQL, Prisma
 * MySQL database integration
 * Prisma ORM support
 * Drizzle ORM support
-* TypeScript for type safety
 * Clean and scalable architecture
 
 ## Tech Stack
 
 * Node.js
-* TypeScript
+* EJS
 * Express.js
+* MongoDB
+* Mongoose
 * MySQL
 * Prisma ORM
 * Drizzle ORM
+* HTML
+* CSS
+  
 
 ## Installation
 
